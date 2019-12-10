@@ -174,9 +174,9 @@ func TestIntegerLitralExpression(t *testing.T) {
 
 func TestParsingPrefixExpressions(t *testing.T) {
   prefixTests := []struct {
-    input        string
-    operator     string
-    value        interface{}
+    input    string
+    operator string
+    value    interface{}
   }{
     {"!5;", "!", 5},
     {"-15;", "-", 15},
@@ -210,7 +210,7 @@ func TestParsingPrefixExpressions(t *testing.T) {
       t.Fatalf("exp.Operator is not '%s'. got=%s",
           tt.operator, exp.Operator)
     }
-    if !testIntegerLiteral(t, exp.Right, tt.rightValue) {
+    if !testLiteralExpression(t, exp.Right, tt.value) {
         return
     }
   }
@@ -279,7 +279,7 @@ func TestParsingInfixExpressions(t *testing.T) {
       t.Fatalf("exp is not ast.InfixExpression. got=%T", stmt.Expression)
     }
 
-    if !testIntegerLiteral(t, exp.Left, tt.leftValue) {
+    if !testLiteralExpression(t, exp.Left, tt.leftValue) {
       return
     }
 
@@ -293,7 +293,7 @@ func TestParsingInfixExpressions(t *testing.T) {
       return
     }
 
-    if !testIntegerLiteral(t, exp.Right, tt.rightValue) {
+    if !testLiteralExpression(t, exp.Right, tt.rightValue) {
       return
     }
   }
