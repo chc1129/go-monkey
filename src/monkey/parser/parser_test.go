@@ -186,7 +186,6 @@ func TestParsingPrefixExpressions(t *testing.T) {
 
   for _, tt := range prefixTests {
     l := lexer.New(tt.input)
-
     p := New(l)
     program := p.ParseProgram()
     checkParserErrors(t, p)
@@ -366,7 +365,27 @@ func TestOperatorPrecedenceParsing(t *testing.T) {
     },
     {
       "3 < 5 == true",
-      "((3 < 5) == true",
+      "((3 < 5) == true)",
+    },
+    {
+      "1 + (2 + 3) + 4",
+      "((1 + (2 + 3)) + 4",
+    },
+    {
+      "(5 + 5) * 2",
+      "((5 + 5) * 2)",
+    },
+    {
+      "2 / (5 + 5)",
+      "(2 / (5 + 5))",
+    },
+    {
+      "-(5 + 5)",
+      "(-(5 + 5))",
+    },
+    {
+      "!(true == true)",
+      "(!(true == true))",
     },
   }
 
